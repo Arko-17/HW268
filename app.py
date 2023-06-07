@@ -17,20 +17,15 @@ def upload_form():
 def upload_image():
 	if request.method == 'POST':
         width = int(request.form['width'])
-        height = int(request.form['height'])
-        
-        image_file = request.files['file']
-        filename = secure_filename(image_file.filename)
-        
-        image_file.save(os.path.join('static/', filename))
-        
-        image = Image.open(image_file)
-        image.thumbnail((width, height))
-        
-        image.save(os.path.join('static/', filename))
-        
-        return render_template('upload.html', filename=filename)
-    return render_template('upload.html')
+	height = int(request.form['height'])
+	image_file = request.files['file']
+	filename = secure_filename(image_file.filename)
+	image_file.save(os.path.join('static/', filename))
+	image = Image.open(image_file)
+	image.thumbnail((width, height))
+	image.save(os.path.join('static/', filename))
+	return render_template('upload.html', filename=filename)
+return render_template('upload.html')
 
 
 @app.route('/display/<filename>')
